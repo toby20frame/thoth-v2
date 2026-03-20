@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+*.egg-info/
+
+# Data (databases are local state, not code)
+data/*.db
+data/*.db-wal
+data/*.db-shm
+
+# Credentials (NEVER commit)
+credentials/
+
+# Logs and backups
+logs/
+backups/
+
+# OS
+.DS_Store
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.cursor/
