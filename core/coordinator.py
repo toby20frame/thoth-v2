@@ -145,7 +145,7 @@ Respond with ONLY valid JSON:
                 system_prompt=self._get_agent_prompt(task.agent),
                 tools=TOOL_REGISTRY.get(task.agent, []),
                 tool_dispatch=TOOL_DISPATCH,
-                force_cloud=task.force_cloud,
+                force_cloud=task.force_cloud or self._needs_cloud(task.agent),
             )
 
             try:
@@ -212,6 +212,10 @@ Respond with ONLY valid JSON:
             for t in report.failed_tasks:
                 print(f"    ✗ {t[:80]}")
         print("=" * 60 + "\n")
+
+    def _needs_cloud(self, agent_name: str) -> bool:
+        """Agents that use tools or need quality output must use cloud."""
+        return agent_name in ("research", "newsletter")
 
     def _get_agent_prompt(self, agent_name: str) -> str:
         prompts = {
